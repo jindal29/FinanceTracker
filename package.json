@@ -2,10 +2,17 @@
   "name": "smart-finance-tracker",
   "version": "1.0.0",
   "description": "Smart Personal Finance Tracker",
+  "homepage": "https://jindal29.github.io/FinanceTracker",
   "scripts": {
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
     "dev": "npx concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "install:all": "cd server && npm install && cd ../client && npm install"
+    "install:all": "cd server && npm install && cd ../client && npm install",
+
+    "predeploy": "cd client && npm run build",
+    "deploy": "gh-pages -d client/dist"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
