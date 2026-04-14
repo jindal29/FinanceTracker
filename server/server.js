@@ -14,6 +14,8 @@ dotenv.config();
 // Connect to Database
 connectDB();
 
+const app = express();
+
 const corsOptions = {
   origin: [
     "http://localhost:5173",
@@ -28,9 +30,6 @@ app.use(cors(corsOptions));
 
 // ✅ handle preflight requests
 app.options("*", cors(corsOptions));
-
-// Enable CORS
-app.use(cors());
 
 // Mount routers
 app.use('/api/v1/auth', authRoutes);
