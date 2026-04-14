@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/FinanceTracker/',   // ✅ YE LINE ADD KARO
+  base: '/FinanceTracker/',   
   server: {
     proxy: {
       '/api': {
