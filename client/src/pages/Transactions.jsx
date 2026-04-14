@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../config';
 import { formatCurrency, formatDate } from '../utils/format';
 import { Plus, Trash2, Filter } from 'lucide-react';
 
@@ -21,7 +22,7 @@ const Transactions = () => {
 
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get('/transactions');
+      const res = await axios.get(`${BASE_URL}/transactions`);
       setTransactions(res.data.data);
     } catch (err) {
       console.error(err);
@@ -33,7 +34,7 @@ const Transactions = () => {
   const handleAddTransaction = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/transactions', {
+      const res = await axios.post(`${BASE_URL}/transactions`, {
         amount: Number(amount),
         category,
         type,
@@ -52,7 +53,7 @@ const Transactions = () => {
 
   const deleteTransaction = async (id) => {
     try {
-      await axios.delete(`/transactions/${id}`);
+      await axios.delete(`${BASE_URL}/transactions/${id}`);
       setTransactions(transactions.filter(t => t._id !== id));
     } catch (err) {
       console.error(err);

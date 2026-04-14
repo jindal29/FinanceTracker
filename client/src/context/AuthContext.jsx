@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../config';
 
 export const AuthContext = createContext();
 
@@ -8,9 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Configure axios defaults
-  axios.defaults.baseURL = 'http://localhost:5001/api/v1';
-
   // Check valid token on load
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -18,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         try {
-          const res = await axios.get('/auth/me');
+          const res = await axios.get(`${BASE_URL}/auth/me`);
           setUser(res.data.data);
         } catch (err) {
           console.error(err);
@@ -41,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setError(null);
     try {
-      const res = await axios.post('/auth/login', { email, password });
+      const res = await axios.post(`${BASE_URL}/auth/login`, { email, password });
       setToken(res.data.data.token);
       setUser(res.data.data);
       return true;
@@ -54,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     setError(null);
     try {
-      const res = await axios.post('/auth/register', { name, email, password });
+      const res = await axios.post(`${BASE_URL}/auth/register`, { name, email, password });
       setToken(res.data.data.token);
       setUser(res.data.data);
       return true;

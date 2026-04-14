@@ -4,13 +4,5 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/FinanceTracker/',   
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5001',
-        changeOrigin: true
-      }
-    }
-  }
+  base: '/FinanceTracker/'
 })

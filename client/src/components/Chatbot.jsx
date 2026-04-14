@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useContext } from 'react';
 import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
+import { BASE_URL } from '../config';
 
 const Chatbot = () => {
   const { user } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const Chatbot = () => {
     setIsTyping(true);
 
     try {
-      const res = await axios.post('/chat', { message: userMessage });
+      const res = await axios.post(`${BASE_URL}/chat`, { message: userMessage });
       const botReply = res.data.data.reply;
       
       setMessages(prev => [...prev, { id: Date.now() + 1, sender: 'bot', text: botReply }]);

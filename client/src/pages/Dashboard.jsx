@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Wallet, TrendingUp, TrendingDown, Clock, Lightbulb } from 'lucide-react';
 import { formatCurrency, formatDate } from '../utils/format';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../config';
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -15,9 +16,9 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const [transactionsRes, totalsRes, insightsRes] = await Promise.all([
-          axios.get('/transactions'),
-          axios.get('/transactions/totals'),
-          axios.get('/transactions/insights')
+          axios.get(`${BASE_URL}/transactions`),
+          axios.get(`${BASE_URL}/transactions/totals`),
+          axios.get(`${BASE_URL}/transactions/insights`)
         ]);
         setTransactions(transactionsRes.data.data);
         setTotals(totalsRes.data.data);
