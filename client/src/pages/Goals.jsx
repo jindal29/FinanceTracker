@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { Target, Plus, Trash2, Trophy } from 'lucide-react';
 import { formatCurrency } from '../utils/format';
-import { BASE_URL } from '../config';
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -19,7 +18,7 @@ const Goals = () => {
 
   const fetchGoals = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/goals`);
+      const res = await api.get('/goals');
       setGoals(res.data.data);
     } catch (err) {
       console.error(err);
@@ -31,7 +30,7 @@ const Goals = () => {
   const handleAddGoal = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/goals`, {
+      const res = await api.post('/goals', {
         name,
         targetAmount: Number(targetAmount),
         currentAmount: Number(currentAmount) || 0
@@ -47,7 +46,7 @@ const Goals = () => {
 
   const deleteGoal = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/goals/${id}`);
+      await api.delete(`/goals/${id}`);
       setGoals(goals.filter(g => g._id !== id));
     } catch (err) {
       console.error(err);
@@ -56,7 +55,7 @@ const Goals = () => {
 
   const updateGoalProgress = async (id, current, add) => {
      try {
-       const res = await axios.put(`${BASE_URL}/goals/${id}`, { currentAmount: current + add });
+       const res = await api.put(`/goals/${id}`, { currentAmount: current + add });
        setGoals(goals.map(g => g._id === id ? res.data.data : g));
      } catch(err) {
        console.error(err);

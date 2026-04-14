@@ -1,8 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import AuthContext from '../context/AuthContext';
 import { User, Mail, LogOut, Calendar, Activity, DollarSign } from 'lucide-react';
-import axios from 'axios';
-import { BASE_URL } from '../config';
+import api from '../utils/api';
 
 const Profile = () => {
   const { user, logout } = useContext(AuthContext);
@@ -14,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/transactions/totals`);
+        const res = await api.get('/transactions/totals');
         if(res.data?.data) {
            setStats({ count: res.data.data.count || 0, total: res.data.data.total || 0 });
         }
@@ -26,7 +25,7 @@ const Profile = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${BASE_URL}/auth/profile`, { name, email });
+      await api.put('/auth/profile', { name, email });
       setMessage('Profile updated successfully.');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {

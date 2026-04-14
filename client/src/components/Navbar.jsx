@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import AuthContext from '../context/AuthContext';
 import { Wallet, LayoutDashboard, List, PieChart, User, LogOut, Menu, X, Target, Settings as SettingsIcon } from 'lucide-react';
 import { useState } from 'react';
 

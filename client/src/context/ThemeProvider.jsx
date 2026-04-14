@@ -1,8 +1,7 @@
-import { createContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import ThemeContext from './ThemeContext';
 
-export const ThemeContext = createContext();
-
-export const ThemeProvider = ({ children }) => {
+const ThemeProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(
     localStorage.getItem('theme') === 'dark' || 
     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -26,3 +25,5 @@ export const ThemeProvider = ({ children }) => {
      </ThemeContext.Provider>
   );
 };
+
+export default ThemeProvider;

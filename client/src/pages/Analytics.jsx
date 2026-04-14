@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import api from '../utils/api';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { formatCurrency } from '../utils/format';
-import { BASE_URL } from '../config';
 
 const COLORS = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
 
@@ -15,8 +14,8 @@ const Analytics = () => {
     const fetchAnalytics = async () => {
       try {
         const [categoryRes, totalsRes] = await Promise.all([
-          axios.get(`${BASE_URL}/transactions/analytics/category`),
-          axios.get(`${BASE_URL}/transactions/totals`)
+          api.get('/transactions/analytics/category'),
+          api.get('/transactions/totals')
         ]);
         setPieData(categoryRes.data.data);
         setTotalExpenses(totalsRes.data.data.expense);

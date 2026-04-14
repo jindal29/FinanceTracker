@@ -1,9 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import api from '../utils/api';
+import AuthContext from '../context/AuthContext';
 import { Target, AlertTriangle, TrendingDown } from 'lucide-react';
 import { formatCurrency } from '../utils/format';
-import { BASE_URL } from '../config';
 
 const BudgetPlanner = () => {
   const { user } = useContext(AuthContext);
@@ -15,7 +14,7 @@ const BudgetPlanner = () => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/transactions/totals`);
+        const res = await api.get('/transactions/totals');
         setExpense(res.data.data.expense);
       } catch (error) {
         console.error(error);
@@ -30,7 +29,7 @@ const BudgetPlanner = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      await axios.put(`${BASE_URL}/auth/profile`, { monthlyBudget: Number(budget) });
+      await api.put('/auth/profile', { monthlyBudget: Number(budget) });
     } catch (err) {
       console.error(err);
     } finally {

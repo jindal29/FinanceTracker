@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import ThemeContext from '../context/ThemeContext';
 import { Moon, Sun, Bell, Shield, Smartphone } from 'lucide-react';
 
 const Settings = () => {
