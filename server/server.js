@@ -26,6 +26,7 @@ const corsOptions = {
   credentials: true
 };
 
+app.use(express.json());
 app.use(cors(corsOptions));
 
 // Mount routers
