@@ -19,7 +19,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://your-vercel-app.vercel.app"
+    "https://finance-trackers-nine.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -27,9 +27,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// ✅ handle preflight requests
-app.options("*", cors(corsOptions));
 
 // Mount routers
 app.use('/api/v1/auth', authRoutes);
